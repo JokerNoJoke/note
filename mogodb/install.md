@@ -27,7 +27,7 @@ systemctl service shell `/usr/lib/systemd/system/mongod.service`
 
     [Service]
     Type=forking
-    ExecStart=/db/mongodb-linux-x86_64-rhel70-4.2.5/bin/mongod -f /etc/mongod.conf --fork
+    ExecStart=/db/mongodb-linux-x86_64-rhel70-4.2.5/bin/mongod -f /etc/mongod.conf --fork --auth
     ExecStop=/db/mongodb-linux-x86_64-rhel70-4.2.5/bin/mongod -f /etc/mongod.conf -shutdown
 
     [Install]
