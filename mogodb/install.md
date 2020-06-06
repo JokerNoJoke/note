@@ -17,6 +17,8 @@ configuration `/etc/mongod.conf`
     net:
       bindIp: 0.0.0.0
       port: 27017
+    security:
+      authorization: enabled
     setParameter:
       enableLocalhostAuthBypass: false
 
@@ -27,7 +29,7 @@ systemctl service shell `/usr/lib/systemd/system/mongod.service`
 
     [Service]
     Type=forking
-    ExecStart=/db/mongodb-linux-x86_64-rhel70-4.2.5/bin/mongod -f /etc/mongod.conf --fork --auth
+    ExecStart=/db/mongodb-linux-x86_64-rhel70-4.2.5/bin/mongod -f /etc/mongod.conf --fork
     ExecStop=/db/mongodb-linux-x86_64-rhel70-4.2.5/bin/mongod -f /etc/mongod.conf -shutdown
 
     [Install]
