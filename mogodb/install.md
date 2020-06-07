@@ -22,7 +22,7 @@ configuration `/etc/mongod.conf`
     setParameter:
       enableLocalhostAuthBypass: false
 
-systemctl service shell `/usr/lib/systemd/system/mongod.service`
+systemctl service shell `/etc/systemd/system/mongod.service`
 
     [Unit]
     Description=MongoDB
