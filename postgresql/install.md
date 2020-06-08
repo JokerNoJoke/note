@@ -1,44 +1,37 @@
 # Postgresql install & configuration
 
-download rpm <https://www.postgresql.org/download/linux/redhat/>
+install
 
-configuration `/db/pgsql/data/postgresql.conf`
+    dnf module list
+    dnf module enable postgresql:12
+    dnf install -y postgresql-server
+    mkdir -p /opt/postgresql/data,log
+    su - postgres
+    pg_ctl init -D /opt/postgresql/data
+
+configuration `/opt/postgresql/data/postgresql.conf`
 
     listen_addresses = '*'
-    log_directory = '/db/pgsql/log/'
+    log_directory = '/db/pgsql/log'
 
-systemctl service shell `/etc/systemd/system/postgresql.service`
+systemctl service shell `vi /usr/lib/systemd/system/postgresql.service`
 
-    [Unit]
-    Description=PostgreSQL database server
-    Documentation=man:postgres(1)
+    Environment=PGDATA=/opt/postgresql/data
 
-    [Service]
-    Type=notify
-    User=postgres
-    ExecStart=/usr/pgsql-12/bin/postgres -D /db/pgsql/data
-    ExecReload=/bin/kill -HUP $MAINPID
-    KillMode=mixed
-    KillSignal=SIGINT
-    TimeoutSec=0
+start and enable
 
-    [Install]
-    WantedBy=multi-user.target
-
-enable and start
-
-    systemctl enable postgresql
     systemctl start postgresql
+    systemctl enable postgresql
 
 run
 
     psql
     \l
-    CREATE DATABASE dbname;
-    \c dbname
     CREATE USER username WITH PASSWORD '123456';
-    GRANT ALL ON DATABASE dbname TO username;
+    # GRANT ALL ON DATABASE dbname TO username;
+    CREATE DATABASE dbname OWNER rolename;
+    \c dbname
 
-remote `/db/pgsql/data/pg_hba.conf`
+remote `/opt/postgresql/data/pg_hba.conf`
 
     host    username        all             0.0.0.0/0               md5
