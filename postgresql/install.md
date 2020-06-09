@@ -6,6 +6,7 @@ install
     dnf module enable postgresql:12
     dnf install -y postgresql-server
     mkdir -p /opt/postgresql/data,log
+    chown -R postgres:postgres /opt/postgresql
     su - postgres
     pg_ctl init -D /opt/postgresql/data
 

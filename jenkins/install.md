@@ -1,8 +1,19 @@
 # Jenkins install & configuration
 
-download war <https://mirrors.huaweicloud.com/jenkins/war/>
+install
 
-    wget https://mirrors.huaweicloud.com/jenkins/war/..
+    wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+    rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+    dnf upgrade
+    dnf install jenkins java-devel
+    mkdir /opt/jenkins
+    chown jenkins:jenkins /opt/jenkins
+
+configuration `/etc/sysconfig/jenkins`
+
+    JENKINS_HOME="/opt/jenkins"
+
+## if war install
 
 run shell
 
