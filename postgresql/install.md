@@ -14,6 +14,7 @@ configuration `/opt/postgresql/data/postgresql.conf`
 
     listen_addresses = '*'
     log_directory = '/db/pgsql/log'
+    log_min_duration_statement = 500
 
 systemctl service shell `vi /usr/lib/systemd/system/postgresql.service`
 
